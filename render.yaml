@@ -1,0 +1,53 @@
+databases:
+  - name: carbon-tracker-db
+    plan: free
+
+services:
+  - type: web
+    name: carbon-tracker-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: PGHOST
+        fromDatabase:
+          name: carbon-tracker-db
+          property: host
+      - key: PGPORT
+        fromDatabase:
+          name: carbon-tracker-db
+          property: port
+      - key: PGDATABASE
+        fromDatabase:
+          name: carbon-tracker-db
+          property: database
+      - key: PGUSER
+        fromDatabase:
+          name: carbon-tracker-db
+          property: user
+      - key: PGPASSWORD
+        fromDatabase:
+          name: carbon-tracker-db
+          property: password
+
+  - type: web
+    name: carbon-tracker-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://carbon-tracker-api.onrender.com/api
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

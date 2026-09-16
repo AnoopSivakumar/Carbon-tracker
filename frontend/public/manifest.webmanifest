@@ -1,0 +1,20 @@
+{
+  "name": "Carbon Circle - Green Rewards Tracker",
+  "short_name": "Carbon Circle",
+  "description": "Track daily choices, reduce your carbon footprint, and grow greener together.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f2f1e9",
+  "theme_color": "#12382f",
+  "categories": ["lifestyle", "health", "productivity"],
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
